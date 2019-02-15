@@ -1,10 +1,13 @@
+package rental;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public class CustomerBuilder {
 
-    public static final String NAME = "Gregroire";
+    public static final String NAME = "Johnny";
     private String name = NAME;
     private List<Rental> rentals = new ArrayList<Rental>();
 

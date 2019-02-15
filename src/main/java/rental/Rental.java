@@ -1,21 +1,23 @@
-import java.util.* ;
+package rental;
+
+import rental.Movie;
 
 public class Rental {
 
-    private Movie _movie;
-    private int _daysRented;
+    private Movie movieRental;
+    private int daysRented;
 
     public Rental(Movie movie, int daysRented) {
-        _movie = movie;
-        _daysRented = daysRented;
+        movieRental = movie;
+        this.daysRented = daysRented;
     }
 
     public int getDaysRented() {
-        return _daysRented;
+        return daysRented;
     }
 
     public Movie getMovie() {
-        return _movie;
+        return movieRental;
     }
 
     public double getCharge() {
@@ -23,7 +25,7 @@ public class Rental {
     }
 
     public int getFrequentRenterPoints() {
-        return getMovie().getFrequentRenterPoints(getDaysRented());
+        return getMovie().getFrequentRenter(getDaysRented());
     }
 
 }

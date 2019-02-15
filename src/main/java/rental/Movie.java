@@ -1,47 +1,55 @@
+package rental;
+
+import rental.Movie;
+import rental.Rental;
+import rental.Customer;
+import rental.Category;
+
+
 public class Movie {
 
 //    public static final int  CHILDRENS = 2;
 //    public static final int  REGULAR = 0;
 //    public static final int  NEW_RELEASE = 1;
 
-    private String _title;
-    private Price _price;
+    private String titleMovie;
+    private Price priceMovie;
 
     public Movie(String title, Category priceCode) {
-        _title = title;
+        titleMovie = title;
         setPriceCode (priceCode);
     }
 
     public Category getPriceCode() {
-        return _price.getPriceCode();
+        return priceMovie.getPriceCode();
     }
 
     public void setPriceCode (Category arg) {
         switch (arg) {
             case REGULAR:
-                _price = new RegularPrice();
+                priceMovie = new RegularMovie();
                 break;
             case CHILDRENS:
-                _price = new ChildrensPrice();
+                priceMovie = new ChildrensMovie();
                 break;
             case NEW_RELEASE:
-                _price = new NewReleasePrice();
+                priceMovie = new NewReleaseMovie();
                 break;
             default:
-                throw new IllegalArgumentException("Incorrect Price Code");
+                throw new IllegalArgumentException("Wrong type of code");
         }
     }
 
     public String getTitle() {
-        return _title;
+        return titleMovie;
     }
 
     double getCharge(int daysRented) {
-        return _price.getCharge(daysRented);
+        return priceMovie.getCharge(daysRented);
     }
 
-    public int getFrequentRenterPoints(int daysRented) {
-        return _price.getFrequentRenterPoints(daysRented);
+    public int getFrequentRenter(int daysRented) {
+        return priceMovie.getFrequentPoints(daysRented);
     }
 
 
@@ -53,13 +61,13 @@ abstract class Price {
 
     abstract double getCharge(int daysRented);
 
-    int getFrequentRenterPoints(int daysRented) {
+    int getFrequentPoints(int daysRented) {
         return 1;
     }
 
 }
 
-class ChildrensPrice extends Price {
+class ChildrensMovie extends Price {
     Category getPriceCode() {
         return Category.CHILDRENS;
     }
@@ -70,19 +78,19 @@ class ChildrensPrice extends Price {
     }
 }
 
-class NewReleasePrice extends Price {
+class NewReleaseMovie extends Price {
     Category getPriceCode() {
         return Category.NEW_RELEASE;
     }
     double getCharge(int daysRented) {
         return daysRented*3;
     }
-    int getFrequentRenterPoints(int daysRented) {
+    int getFrequentPoints(int daysRented) {
         return (daysRented > 1) ? 2 : 1 ;
     }
 }
 
-class RegularPrice extends Price {
+class RegularMovie extends Price {
     Category getPriceCode() {
         return Category.REGULAR;
     }

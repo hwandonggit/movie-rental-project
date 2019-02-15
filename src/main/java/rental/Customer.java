@@ -1,65 +1,59 @@
+package rental;
+
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
 
 class Customer {
 
-    private String _name;
-    private List<Rental> _rentals = new ArrayList<Rental>();
+    private String cName;
+    private List<Rental> rentalsList = new ArrayList<Rental>();
 
-    private Statement _statement ;
+    private Statement statementRental;
 
     public Customer(String name) {
-        _name = name;
-        //setPlainStatement();
+        cName = name;
+        setPlainStatement();
     }
 
     public void setPlainStatement () {
-        _statement = new PlainStatement();
+        statementRental = new PlainStatement();
     }
 
 
-    public void addRental(Rental arg) {
-        _rentals.add(arg);
+    public void addRental(Rental rItem) {
+        rentalsList.add(rItem);
     }
 
     public String getName() {
-        return _name;
+        return cName;
     }
 
     public List<Rental> getRentals() {
-        return _rentals;
+        return rentalsList;
     }
 
     public String doStatement() {
-        return _statement.value(this);
+        return statementRental.value(this);
     }
 
     public int getTotalFrequentRenterPoints() {
         int result = 0;
-        for (Rental oneRental: _rentals) {
+        for (Rental oneRental: rentalsList) {
             result += oneRental.getFrequentRenterPoints();
         }
-//        Enumeration rentals = _rentals.elements();
-//        while (rentals.hasMoreElements()) {
-//            Rental each = (Rental) rentals.nextElement();
-//            result += each.getFrequentRenterPoints();
-//        }
+        // Stream<Rental> rStream = rentalsList.stream();
         return result;
 
     }
 
     public double getTotalCharge() {
         double result = 0;
-        for (Rental oneRental: _rentals) {
+        for (Rental oneRental: rentalsList) {
             result += oneRental.getCharge();
         }
-//        Enumeration rentals = _rentals.elements();
-//        while (rentals.hasMoreElements()) {
-//            Rental each = (Rental) rentals.nextElement();
-//            result += each.getCharge();
-//        }
         return result;
     }
 
@@ -72,6 +66,8 @@ abstract class Statement {
 
         String result = headerString(aCustomer);
 
+        System.out.println("rentals.size: " + rentals.size());
+
         while (iteratorRental.hasNext()) {
             Rental each = (Rental) iteratorRental.next();
             //show figures for this rental
@@ -81,6 +77,7 @@ abstract class Statement {
         //add footer lines
         result += footerString(aCustomer);
 
+        System.out.println("result: " + result);
         return result;
     }
 

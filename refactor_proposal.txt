@@ -1,13 +1,11 @@
-1. in Customer class, function statement() can be extracted to..., when our rules are changed, statement() needs to be
-   changed to be a separate function in Rental class, code is not clean.
-2. Get rid of switch statements and use polymorphism.
-3. use inheritance to define subclass of Movie class.
-2. types of movies define are not flexible for new types in the future.
-3. "add frequent renter points" is moved to a function of Rental class.
-4. add unit testing.
+Here are couple of points to improve the code:
 
-6. A Customer only knows that it can ask a rental for the price and points, it doesn't need to know how those are calculated.
-
-7. A Rental needs to know who to ask for the actual price or points, and has the information needed to calculate those (in this case, the number of days rented).
-
-8. frequentRenterPoints should be moved to rental.
+1. A Customer only knows that it can ask a rental for the price and points, it doesn't need to know how those are calculated.
+2. A Rental needs to know who to ask for the actual price or points, and has the information needed to calculate those (in this case, the number of days rented).
+3. in Customer class, function statement() can be refactored and moved to Rental class, which is cleaner.
+4. Get rid of switch statements and use polymorphism.
+5. Define abstract Movie class and then use inheritance for subclasses: Childrens, NewRelease and Regular.
+6. Use enum for types of movies define which can be flexible for new types in the future.
+7. "add frequent renter points" is moved to a new function of Rental class.
+8. Add unit testing for rentals
+9. frequentRenterPoints should be moved to Rental class.
