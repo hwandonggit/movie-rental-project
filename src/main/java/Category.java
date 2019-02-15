@@ -1,3 +1,3 @@
 public enum Category {
-    CHILDREN, REGULAR, NEW_RELEASE;
+    CHILDRENS, REGULAR, NEW_RELEASE;
 }

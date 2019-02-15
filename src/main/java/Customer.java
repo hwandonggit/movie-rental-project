@@ -1,17 +1,18 @@
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.ListIterator;
 
 class Customer {
 
     private String _name;
-    private List<Integer> _rentals = new ArrayList<Integer>();
+    private List<Rental> _rentals = new ArrayList<Rental>();
 
     private Statement _statement ;
 
     public Customer(String name) {
         _name = name;
-        setPlainStatement();
+        //setPlainStatement();
     }
 
     public void setPlainStatement () {
@@ -27,8 +28,8 @@ class Customer {
         return _name;
     }
 
-    public Enumeration getRentals() {
-        return _rentals.;
+    public List<Rental> getRentals() {
+        return _rentals;
     }
 
     public String doStatement() {
@@ -37,22 +38,28 @@ class Customer {
 
     public int getTotalFrequentRenterPoints() {
         int result = 0;
-        Enumeration rentals = _rentals.elements();
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            result += each.getFrequentRenterPoints();
+        for (Rental oneRental: _rentals) {
+            result += oneRental.getFrequentRenterPoints();
         }
+//        Enumeration rentals = _rentals.elements();
+//        while (rentals.hasMoreElements()) {
+//            Rental each = (Rental) rentals.nextElement();
+//            result += each.getFrequentRenterPoints();
+//        }
         return result;
 
     }
 
     public double getTotalCharge() {
         double result = 0;
-        Enumeration rentals = _rentals.elements();
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            result += each.getCharge();
+        for (Rental oneRental: _rentals) {
+            result += oneRental.getCharge();
         }
+//        Enumeration rentals = _rentals.elements();
+//        while (rentals.hasMoreElements()) {
+//            Rental each = (Rental) rentals.nextElement();
+//            result += each.getCharge();
+//        }
         return result;
     }
 
@@ -60,12 +67,13 @@ class Customer {
 
 abstract class Statement {
     public String value(Customer aCustomer) {
-        Enumeration rentals = aCustomer.getRentals();
+        List<Rental> rentals = aCustomer.getRentals();
+        ListIterator<Rental> iteratorRental = rentals.listIterator();
 
         String result = headerString(aCustomer);
 
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
+        while (iteratorRental.hasNext()) {
+            Rental each = (Rental) iteratorRental.next();
             //show figures for this rental
             result += eachRentalString(each);
         }
